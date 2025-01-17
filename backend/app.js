@@ -1,5 +1,5 @@
 import express from 'express';
-import admin from './firebaseAdmin.js'; // Import Firebase Admin setup
+import admin from './firebaseAdmin.js'; 
 
 const app = express();
 

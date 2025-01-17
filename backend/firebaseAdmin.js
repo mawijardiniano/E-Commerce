@@ -2,18 +2,29 @@ import admin from 'firebase-admin';
 import { readFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Get the directory name from the current module URL
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Assuming the service account JSON file is in the 'config' folder
-const serviceAccountPath = path.join(__dirname, 'config', 'serviceAccountKey.json');
+// Check if the FIREBASE_SERVICE_ACCOUNT_KEY environment variable is set
+const serviceAccountKey = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 
 if (!admin.apps.length) {
   try {
-    // Read the service account JSON file and parse it
-    const serviceAccount = JSON.parse(readFileSync(serviceAccountPath, 'utf8'));
+    let serviceAccount;
+
+    if (serviceAccountKey) {
+      // If FIREBASE_SERVICE_ACCOUNT_KEY is provided as a JSON string, parse it
+      serviceAccount = JSON.parse(serviceAccountKey);
+    } else {
+      // If not set, fall back to using the service account JSON file
+      const serviceAccountPath = path.join(__dirname, 'config', 'serviceAccountKey.json');
+      serviceAccount = JSON.parse(readFileSync(serviceAccountPath, 'utf8'));
+    }
 
     // Initialize Firebase Admin
     admin.initializeApp({
