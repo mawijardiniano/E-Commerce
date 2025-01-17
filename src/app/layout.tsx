@@ -1,6 +1,7 @@
-import "@/app/globals.css"; 
+import "@/app/globals.css";
+import { NavigationMenuDemo } from "@/components/navbar";
 
-export default function Layout({ children }) {
+export default function Layout({}) {
   return (
     <html lang="en">
       <head>
@@ -9,7 +10,7 @@ export default function Layout({ children }) {
         <title>My Next.js App</title>
       </head>
       <body>
-        {children} 
+        <NavigationMenuDemo />
       </body>
     </html>
   );
