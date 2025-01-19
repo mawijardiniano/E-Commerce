@@ -2,8 +2,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import "@/app/globals.css";
 import Navbar from "../components/navbar";
-import CarouselOffers from "@/components/carousel";
-
+import Dashboard from "@/app/(pages)/dashboard/page";
 interface LayoutProps {
   children: ReactNode;
 }
@@ -22,9 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
         </header>
 
         <main>
-          <section className="flex items-center justify-center py-4">
-          <CarouselOffers />
-          </section>
+        <Dashboard/>
         </main>
       </body>
     </html>
