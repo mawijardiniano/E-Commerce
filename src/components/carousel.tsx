@@ -10,43 +10,48 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import Image1 from "@/app/favicon.ico"
+import Image1 from "@/assets/chinese.png"
+import Image2 from "@/assets/halftime.png"
+import Image3 from "@/assets/huawei.png"
+import Image4 from "@/assets/livextra.jpg"
+import Image5 from "@/assets/you.png"
 
 export default function CarouselPlugin() {
   const autoplayPlugin = Autoplay({ delay: 2000, stopOnInteraction: false })
 
   const images = [
     Image1.src,
-    "https://via.placeholder.com/400x300?text=Image+2",
-    "https://via.placeholder.com/400x300?text=Image+3",
-    "https://via.placeholder.com/400x300?text=Image+4",
-    "https://via.placeholder.com/400x300?text=Image+5",
+    Image2.src,
+    Image3.src,
+    Image4.src,
+    Image5.src,
   ]
 
   return (
     <Carousel
-      plugins={[autoplayPlugin]}
-      className="w-full md:max-w-2xl sm:max-w-md xs:max-w-xs"
-    >
-      <CarouselContent>
-        {images.map((image, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
-              <Card className="md:h-60 sm:h-56 xs:h-52 flex items-center justify-center">
-                <CardContent className="flex items-center justify-center p-0">
-                  <img
-                    src={image}
-                    alt={`Promotion ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+  plugins={[autoplayPlugin]}
+  className="w-full md:max-w-2xl sm:max-w-lg xs:max-w-md"
+>
+  <CarouselContent>
+    {images.map((image, index) => (
+      <CarouselItem key={index}>
+        <div className="p-1">
+          <Card className="w-full md:h-56 sm:h-40 xs:h-34 flex items-center justify-center">
+            <CardContent className="flex items-center justify-center w-full h-full p-0">
+              <img
+                src={image}
+                alt={`Promotion ${index + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </CardContent>
+          </Card>
+        </div>
+      </CarouselItem>
+    ))}
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+
   )
 }
