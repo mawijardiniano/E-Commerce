@@ -1,6 +1,6 @@
 import  firebase  from '../firebaseAdmin.js';
 const { db, auth } = firebase;
-// Sign up a user
+
 export const signUpUser = async (req, res) => {
   const { email, password, displayName } = req.body;
 
@@ -24,7 +24,7 @@ export const signUpUser = async (req, res) => {
   }
 };
 
-// Sign in a user (Verify token)
+
 export const signInUser = async (req, res) => {
   const { token } = req.body;
 
@@ -40,7 +40,6 @@ export const signInUser = async (req, res) => {
   }
 };
 
-// Get user details by UID
 export const getUser = async (req, res) => {
   const { uid } = req.params;
 

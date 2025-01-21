@@ -3,9 +3,9 @@ import { signUpUser, signInUser, getUser } from '../controllers/authController.j
 
 const router = express.Router();
 
-// Define routes
-router.post('/signup', signUpUser);   // POST: Register a user
-router.post('/signin', signInUser);  // POST: Authenticate user
-router.get('/user/:uid', getUser);   // GET: Get user by UID
+
+router.post('/signup', signUpUser); 
+router.post('/signin', signInUser); 
+router.get('/user/:uid', getUser);  
 
 export default router;
