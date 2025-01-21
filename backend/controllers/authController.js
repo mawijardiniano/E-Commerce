@@ -1,5 +1,5 @@
-import  auth  from '../firebaseAdmin.js';
-
+import  firebase  from '../firebaseAdmin.js';
+const { db, auth } = firebase;
 // Sign up a user
 export const signUpUser = async (req, res) => {
   const { email, password, displayName } = req.body;

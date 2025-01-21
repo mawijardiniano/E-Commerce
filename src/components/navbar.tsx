@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-
+import GoogleSignIn from "./googleSignIn";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import {
@@ -65,6 +65,7 @@ export default function NavigationMenuDemo() {
         <Input className="w-24 md:w-50" />
         <FaCartShopping/>
         <Menubar className="border-0">
+        <GoogleSignIn/>
           <MenubarMenu>
             <MenubarTrigger className="md:text-lg">{name}</MenubarTrigger>
             <MenubarContent>

@@ -1,5 +1,5 @@
-import db from '../firebaseAdmin.js';
-
+import  firebase  from '../firebaseAdmin.js';
+const { db, auth } = firebase;
 import admin from 'firebase-admin';
 
 export const createUser = async (req, res) => {

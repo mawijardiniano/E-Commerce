@@ -15,7 +15,6 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="bg-gray-300">
-          <GoogleSignIn/>
           <p>Daily Discovery</p>
           <p>Random Items</p>
         </div>

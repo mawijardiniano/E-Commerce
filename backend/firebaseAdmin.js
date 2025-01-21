@@ -11,10 +11,10 @@ if (!serviceAccount) {
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://your-project-id.firebaseio.com",
+  databaseURL: "https://e-commerce-6d61d.firebaseio.com",
 });
 
 const db = admin.firestore();
 const auth = admin.auth();
 
-export default {db, auth};
+export default { db, auth };
