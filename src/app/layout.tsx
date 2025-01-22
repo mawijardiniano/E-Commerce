@@ -3,6 +3,7 @@ import Link from "next/link";
 import "@/app/globals.css";
 import Navbar from "../components/navbar";
 import Dashboard from "@/app/(pages)/dashboard/page";
+import Login from "@/app/(pages)/authentication/login/page"
 interface LayoutProps {
   children: ReactNode;
 }
@@ -13,15 +14,11 @@ const Layout = ({ children }: LayoutProps) => {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Next.js App</title>
+        <title>E-Commerce</title>
       </head>
       <body>
-        <header>
-          <Navbar />
-        </header>
-
         <main>
-        <Dashboard/>
+        <Login/>
         </main>
       </body>
     </html>

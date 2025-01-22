@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { auth, googleProvider } from "../app/firebase";
 import { signInWithPopup } from "firebase/auth";
-
-const GoogleSignIn = () => {
+import { useRouter } from 'next/navigation'
+const GoogleSignIn = ({}) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -33,7 +33,14 @@ const GoogleSignIn = () => {
     return null;
   }
 
-  return <button onClick={handleGoogleSignIn}>Sign in with Google</button>;
+  return (
+    <button
+      onClick={handleGoogleSignIn}
+      className="bg-blue-500 text-white p-2 rounded-sm w-full"
+    >
+      Sign in with Google
+    </button>
+  );
 };
 
 export default GoogleSignIn;
