@@ -1,9 +1,6 @@
 import { ReactNode } from "react";
-import Link from "next/link";
 import "@/app/globals.css";
-import Navbar from "../components/navbar";
-import Dashboard from "@/app/(pages)/dashboard/page";
-import Login from "@/app/(pages)/authentication/login/page"
+
 interface LayoutProps {
   children: ReactNode;
 }
@@ -17,9 +14,8 @@ const Layout = ({ children }: LayoutProps) => {
         <title>E-Commerce</title>
       </head>
       <body>
-        <main>
-        <Login/>
-        </main>
+
+        <main>{children}</main>
       </body>
     </html>
   );

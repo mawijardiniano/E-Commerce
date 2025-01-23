@@ -1,19 +1,13 @@
-'use client'
+"use client";
 
 import Logo from "@/assets/E-Commerce.jpg";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import GoogleSignIn from "@/components/googleSignIn";
-import { useRouter } from 'next/navigation'
-import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 export default function Page() {
-    const router = useRouter()
-
-
-    const handleLogin = () => {
-        router.push("/dashboard")
-    }
-
   return (
     <div className="flex flex-row">
       <div className="w-1/2">
@@ -21,18 +15,25 @@ export default function Page() {
       </div>
       <div className="w-1/2 flex justify-center flex-col px-40">
         <div className="flex justify-center flex-col">
-          <h3 className="text-3xl font-medium">Welcome to E-Commerce</h3>
-          <div className="space-y-2 py-4">
+          <h3 className="text-3xl font-medium">Sign Up</h3>
+          <div className="py-4 space-y-2">
+            <Input placeholder="Name" />
             <Input placeholder="Email" />
             <Input placeholder="Password" />
+            <Input placeholder="Confirm Password" />
+            <Input placeholder="Address" />
+            <Input placeholder="Phome Number" />
           </div>
         </div>
         <div className="flex justify-end w-full items-end py-2">
-        <p className="text-sm">Don't have an account? <Link href="/authentication/signup">Sign Up</Link></p>
+          <p className="text-sm">
+            Already have an account?{" "}
+            <Link href="/authentication/login">Login</Link>
+          </p>
         </div>
         <div className="flex items-center justify-center">
-          <button onClick={handleLogin} className="bg-orange-400 text-white py-2 w-full">
-            Login
+          <button className="bg-orange-400 text-white py-2 w-full">
+            Signup
           </button>
         </div>
 
