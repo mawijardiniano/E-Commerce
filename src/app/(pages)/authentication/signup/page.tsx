@@ -1,13 +1,42 @@
 "use client";
-
+import axios from "axios";
+import React, { useState } from "react";
 import Logo from "@/assets/E-Commerce.jpg";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import GoogleSignIn from "@/components/googleSignIn";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ManualAuth from "@/interfaces/manualAuthInterface";
 
 export default function Page() {
+  const SIGNUP_API = "http://localhost:5000/api/signup";
+  const router = useRouter()
+  const [formData, setFormData] = useState<ManualAuth>({
+    name: "",
+    email: "",
+    password: "",
+    address: "",
+    phoneNumber: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post<ManualAuth>(SIGNUP_API, formData);
+      console.log(response);
+      router.push("/authentication/login")
+      alert("Signup Successfully");
+    } catch (error) {}
+  };
+
   return (
     <div className="flex flex-row">
       <div className="w-1/2">
@@ -16,13 +45,44 @@ export default function Page() {
       <div className="w-1/2 flex justify-center flex-col px-40">
         <div className="flex justify-center flex-col">
           <h3 className="text-3xl font-medium">Sign Up</h3>
-          <div className="py-4 space-y-2">
-            <Input placeholder="Name" />
-            <Input placeholder="Email" />
-            <Input placeholder="Password" />
-            <Input placeholder="Confirm Password" />
-            <Input placeholder="Address" />
-            <Input placeholder="Phome Number" />
+          <div>
+            <form className="py-4 space-y-2">
+              <Input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Name"
+              />
+              <Input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email"
+              />
+              <Input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+              />
+              <Input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Address"
+              />
+              <Input
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                placeholder="Phone Number"
+              />
+            </form>
           </div>
         </div>
         <div className="flex justify-end w-full items-end py-2">
@@ -32,7 +92,7 @@ export default function Page() {
           </p>
         </div>
         <div className="flex items-center justify-center">
-          <button className="bg-orange-400 text-white py-2 w-full">
+          <button onClick={handleSignup} className="bg-orange-400 text-white py-2 w-full">
             Signup
           </button>
         </div>

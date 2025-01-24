@@ -1,7 +1,7 @@
 import express from 'express';
 import db from './firebaseAdmin.js'; 
 import cors from 'cors';
-import userRouter from "./routes/userController.js"
+import manualAuthRouter from "./routes/manualAuthController.js"
 import authRouter from "./routes/authController.js"
 import productRouter from "./routes/productController.js"
 
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", userRouter);
+app.use("/api", manualAuthRouter);
 app.use("/google-login", authRouter)
 app.use("/api/products", productRouter)
 

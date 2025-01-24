@@ -1,26 +1,50 @@
 import  firebase  from '../firebaseAdmin.js';
-const { db, auth } = firebase;
+const { db, auth,admin } = firebase;
+
 
 export const signUpUser = async (req, res) => {
   const { email, password, displayName } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Email and password are required' });
+  if (!email || !password || !displayName) {
+    return res.status(400).json({ message: 'Email, password, and display name are required' });
   }
 
   try {
+    console.log('Creating user in Firebase Authentication...');
     const user = await auth.createUser({
       email,
       password,
       displayName,
     });
 
+    console.log('User created successfully in Firebase Authentication:', user.uid);
+
+    const newUser = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+
+    console.log('Adding user to Firestore...');
+    await db.collection('users').doc(user.uid).set(newUser);
+
+    console.log('User added to Firestore:', newUser);
+
     res.status(201).json({
       message: 'User created successfully',
-      user: { uid: user.uid, email: user.email, displayName: user.displayName },
+      user: newUser,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error creating user', error: error.message });
+    console.error('Error occurred:', error);
+
+    if (error.code === 'auth/email-already-exists') {
+      return res.status(400).json({ message: 'Email already exists' });
+    } else if (error.code === 'auth/invalid-password') {
+      return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+    } else {
+      return res.status(500).json({ message: 'Error creating user', error: error.message });
+    }
   }
 };
 

@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import { auth, googleProvider } from "../app/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useRouter } from 'next/navigation'
+
 const GoogleSignIn = ({}) => {
+  const router = useRouter()
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -21,8 +23,9 @@ const GoogleSignIn = ({}) => {
 
       const user = result.user;
       console.log("User Info:", user);
-
+      router.push("/dashboard")
       alert(`Welcome ${user.displayName}!`);
+
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
       alert("There was an issue signing in with Google. Please try again.");
