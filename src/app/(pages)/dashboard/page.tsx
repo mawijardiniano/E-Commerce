@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import ProductInterface from "@/interfaces/ProductInterface";
 import CategoriesCarousel from "@/components/categoriesCarousel";
 export default function Dashboard() {
+  const [loggedUser, setLoggedUser] = useState("")
   const [product, setProduct] = useState<ProductInterface[]>([]);
 
   const FetchProductAPI = "http://localhost:5000/api/products/fetch-product";
@@ -46,6 +47,7 @@ export default function Dashboard() {
                 <h3>{products.name}</h3>
                 <p>{products.price}</p>
                 <p>{products.category}</p>
+                <p></p>
               </div>
             ))
           ) : (

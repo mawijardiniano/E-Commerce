@@ -81,17 +81,4 @@ export const userLogin = async (req, res) => {
   }
 };
 
-export const getUsers = async (req, res) => {
-  try {
-    const usersSnapshot = await db.collection("users").get();
-    const users = usersSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    res.status(200).json(users);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching users", error: error.message });
-  }
-};
+

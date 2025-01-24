@@ -7,11 +7,11 @@ import { Input } from "@/components/ui/input";
 import GoogleSignIn from "@/components/googleSignIn";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import ManualAuth from "@/interfaces/manualAuthInterface";
+import { ManualAuth } from "@/interfaces/manualAuthInterface";
 
 export default function Page() {
   const SIGNUP_API = "http://localhost:5000/api/signup";
-  const router = useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState<ManualAuth>({
     name: "",
     email: "",
@@ -32,7 +32,7 @@ export default function Page() {
     try {
       const response = await axios.post<ManualAuth>(SIGNUP_API, formData);
       console.log(response);
-      router.push("/authentication/login")
+      router.push("/authentication/login");
       alert("Signup Successfully");
     } catch (error) {}
   };
@@ -92,7 +92,10 @@ export default function Page() {
           </p>
         </div>
         <div className="flex items-center justify-center">
-          <button onClick={handleSignup} className="bg-orange-400 text-white py-2 w-full">
+          <button
+            onClick={handleSignup}
+            className="bg-orange-400 text-white py-2 w-full"
+          >
             Signup
           </button>
         </div>
