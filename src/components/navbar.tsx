@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
+import axios from 'axios'
 import {
   Menubar,
   MenubarContent,
@@ -12,9 +13,21 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-
+import { ManualAuth } from "@/interfaces/manualAuthInterface";
+import { jwtDecode } from "jwt-decode";
 import { FaReact } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+interface JwtPayload {
+  userId: string;
+  exp: number;
+  iat: number;
+}
+
+interface UserData {
+  name: string;
+  email: string;
+  userId: string;
+}
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -55,7 +68,35 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export default function NavigationMenuDemo() {
-  const [name, setName] = useState<string>("Mawi Jardiniano");
+const LOGGED_USER = "http://localhost:5000/api/getLogged"
+const [userLogged, setUserLogged] = useState<UserData | null>(null)
+
+useEffect(() => {
+  const fetchLoggedUser = async () => {
+    const token = localStorage.getItem("authToken");
+
+    if (token) { 
+      try {
+        const decodedToken = jwtDecode<JwtPayload>(token); 
+        const userId = decodedToken.userId;
+
+        const response = await axios.get(LOGGED_USER, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        console.log("userData", response.data);
+        setUserLogged(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    } else {
+      console.log("No token found in localStorage");
+    }
+  };
+
+  fetchLoggedUser();
+}, []);
+
   return (
     <div className="flex flex-row justify-between w-full items-center px-4 py-4 border ">
       <div className="md:text-xl font-bold">E-Commerce</div>
@@ -64,7 +105,7 @@ export default function NavigationMenuDemo() {
         <FaCartShopping/>
         <Menubar className="border-0">
           <MenubarMenu>
-            <MenubarTrigger className="md:text-lg">{name}</MenubarTrigger>
+            <MenubarTrigger className="md:text-lg">{userLogged?.name}</MenubarTrigger>
             <MenubarContent>
               <MenubarSeparator />
               <MenubarItem>My Profile</MenubarItem>

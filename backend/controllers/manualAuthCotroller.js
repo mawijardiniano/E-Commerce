@@ -81,4 +81,34 @@ export const userLogin = async (req, res) => {
   }
 };
 
+export const getUserLoggedin = async (req, res) => {
+  try {
+    console.log("Request received at /getLogged");
+
+    const { userId } = req.user;
+    console.log("User ID:", userId);
+
+    const userDoc = await db.collection("users").doc(userId).get();
+
+    if (!userDoc.exists) {
+      console.log("User not found");
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const user = userDoc.data();
+    console.log("User found:", user);
+
+    res.json({
+      id: userId,
+      name: user.name,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      address: user.address,
+      createdAt: user.createdAt,
+    });
+  } catch (error) {
+    console.error("Error in getUserLoggedin:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 

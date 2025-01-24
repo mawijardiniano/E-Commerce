@@ -47,7 +47,6 @@ export default function Dashboard() {
                 <h3>{products.name}</h3>
                 <p>{products.price}</p>
                 <p>{products.category}</p>
-                <p></p>
               </div>
             ))
           ) : (
