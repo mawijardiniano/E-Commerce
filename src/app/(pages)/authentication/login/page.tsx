@@ -76,13 +76,13 @@ export default function Page() {
               name="email"
             />
             <Input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-   
-        />
+              type="password"
+              id="password"
+              placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
           </div>
         </div>
         <div className="flex justify-end w-full items-end py-2">
