@@ -22,24 +22,35 @@ export default function Page() {
   const FetchProductAPI = "http://localhost:5000/api/products/fetch-product";
 
   const fetchAllProducts = async () => {
-    try {
-      const response = await axios.get<ProductInterface[]>(FetchProductAPI);
-      console.log("all product", response.data);
-      setProduct(response.data);
-
-      const filtered = response.data.filter(
-        (product) => product.category === filterCategory
-      );
-      setFilteredProducts(filtered);
-    } catch (error) {
-      console.error("Error fetching products", error);
+    const cachedData = localStorage.getItem("products");
+    if (cachedData) {
+      console.log("Using cached data");
+      const cachedProducts = JSON.parse(cachedData);
+      setProduct(cachedProducts);
+      filterProducts(cachedProducts);
+    } else {
+      try {
+        const response = await axios.get<ProductInterface[]>(FetchProductAPI);
+        console.log("All products fetched", response.data);
+        localStorage.setItem("products", JSON.stringify(response.data));
+        setProduct(response.data);
+        filterProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products", error);
+      }
     }
+  };
+
+  const filterProducts = (products: ProductInterface[]) => {
+    const filtered = products.filter(
+      (product) => product.category === filterCategory
+    );
+    setFilteredProducts(filtered);
   };
 
   useEffect(() => {
     fetchAllProducts();
   }, [filterCategory]);
-
   return (
     <div>
       {filteredProducts.length > 0 ? (
