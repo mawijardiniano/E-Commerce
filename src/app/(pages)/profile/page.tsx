@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface UserData {
+  id: string;
   name: string;
   email: string;
   phoneNumber: string;
@@ -19,6 +20,7 @@ export default function Page() {
   const [currentView, setCurrentView] = useState("profile");
   const [userLogged, setUserLogged] = useState<UserData | null>(null);
   const [formData, setFormData] = useState<UserData>({
+    id: "",
     name: "",
     email: "",
     phoneNumber: "",
@@ -27,6 +29,8 @@ export default function Page() {
   });
 
   const LOGGED_USER = "http://localhost:5000/api/getLogged";
+  const UPDATE_USER = (userId: string) =>
+    `http://localhost:5000/api/users/${userId}`;
 
   useEffect(() => {
     const cachedUser = localStorage.getItem("cachedUser");
@@ -43,6 +47,7 @@ export default function Page() {
           const response = await axios.get(LOGGED_USER, {
             headers: { Authorization: `Bearer ${token}` },
           });
+          console.log(response.data)
           setUserLogged(response.data);
           setFormData(response.data);
 
@@ -63,6 +68,33 @@ export default function Page() {
   const handleDateChange = (date: Date) => {
     const formattedDate = date.toISOString().split("T")[0];
     setFormData({ ...formData, birthday: formattedDate });
+  };
+
+  const handleSubmit = async () => {
+    if (!userLogged) return;
+
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await axios.put(
+        UPDATE_USER(userLogged.id),
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      console.log("User updated:", response.data);
+      alert("Profile updated successfully!");
+
+      localStorage.setItem(
+        "cachedUser",
+        JSON.stringify(response.data.updatedData)
+      );
+      setUserLogged(response.data.updatedData);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      alert("Failed to update profile.");
+    }
   };
 
   const renderView = () => {
@@ -126,7 +158,10 @@ export default function Page() {
                 />
               </div>
               <section className="">
-                <button className="bg-black text-white py-2 px-4 rounded-md">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-black text-white py-2 px-4 rounded-md"
+                >
                   Save Changes
                 </button>
               </section>
