@@ -24,6 +24,7 @@ export const createUser = async (req, res) => {
       password: hashedPassword,
       address,
       phoneNumber,
+      birthday,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -101,8 +102,10 @@ export const getUserLoggedin = async (req, res) => {
       id: userId,
       name: user.name,
       email: user.email,
+      gender: user.gender,
       phoneNumber: user.phoneNumber,
       address: user.address,
+      birthday: user.birthday,
       createdAt: user.createdAt,
     });
   } catch (error) {
@@ -110,4 +113,39 @@ export const getUserLoggedin = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const updateUser = async (req, res) => {
+  const { userId } = req.params; 
+  const { name, email, gender, address, phoneNumber, birthday } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  try {
+    const userRef = db.collection("users").doc(userId);
+
+    const userSnapshot = await userRef.get();
+    if (!userSnapshot.exists) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const updatedData = {};
+    if (name) updatedData.name = name;
+    if (email) updatedData.email = email;
+    if (gender) updatedData.gender = gender;
+    if (address) updatedData.address = address;
+    if (phoneNumber) updatedData.phoneNumber = phoneNumber;
+    if (birthday) updatedData.birthday = birthday;
+
+    updatedData.updatedAt = admin.firestore.FieldValue.serverTimestamp();
+
+    await userRef.update(updatedData);
+
+    res.status(200).json({ message: "User updated successfully", updatedData });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating user", error: error.message });
+  }
+};
+
 

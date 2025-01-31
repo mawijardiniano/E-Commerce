@@ -1,7 +1,6 @@
 "use client";
 import CarouselOffers from "@/components/carousel";
 import Navbar from "@/components/navbar";
-import GoogleSignIn from "@/components/googleSignIn";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ProductInterface from "@/interfaces/ProductInterface";
@@ -18,7 +17,6 @@ import Image1 from "@/assets/you.png";
 import Image from "next/image";
 
 export default function Dashboard() {
-  const [loggedUser, setLoggedUser] = useState("");
   const [product, setProduct] = useState<ProductInterface[]>([]);
 
   const FetchProductAPI = "http://localhost:5000/api/products/fetch-product";
@@ -28,8 +26,11 @@ export default function Dashboard() {
       const response = await axios.get<ProductInterface[]>(FetchProductAPI);
       console.log("all product", response.data);
       setProduct(response.data);
-    } catch (error) {}
+    } catch (error) {
+      
+    }
   };
+  
   useEffect(() => {
     fetchAllProducts();
   }, []);
@@ -51,9 +52,9 @@ export default function Dashboard() {
         </div>
       </section>
       <section>
-        <div className="bg-gray-300">
-          <p>Daily Discovery</p>
-          <div className="flex flex-row px-8 gap-2">
+        <div className="">
+          <p className="text-gray-400 text-lg font-medium px-8 ">Daily Discovery</p>
+          <div className="flex flex-row px-8 gap-2 py-4">
             {product.length > 0 ? (
               product.map((products, index) => (
                 <Card key={index} className="w-64 h-64">
@@ -78,8 +79,6 @@ export default function Dashboard() {
               <p>No product available</p>
             )}
           </div>
-
-          <p>Random Items</p>
         </div>
       </section>
     </div>

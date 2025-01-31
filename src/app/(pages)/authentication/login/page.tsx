@@ -1,6 +1,6 @@
 "use client";
 
-import Logo from "@/assets/E-Commerce.jpg";
+import Logo from "@/assets/E-Commerce.png";
 import axios from "axios";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
@@ -53,19 +53,18 @@ export default function Page() {
       }
     } catch (error) {
       console.error(
-        "Login failed:",
-        error.response?.data?.message || error.message
+        "Login failed:"
       );
     }
   };
 
   return (
-    <div className="flex flex-row">
-      <div className="w-1/2">
+    <div className="flex flex-row ">
+      <div className="w-1/2 flex">
         <Image src={Logo} alt="E-Commerce Logo" layout="intrinsic" />
       </div>
-      <div className="w-1/2 flex justify-center flex-col px-40">
-        <div className="flex justify-center flex-col">
+      <div className="w-1/2 h-screen flex justify-center flex-col px-40">
+        <div className="flex  justify-center flex-col">
           <h3 className="text-3xl font-medium">Welcome to E-Commerce</h3>
           <div className="space-y-2 py-4">
             <Input
@@ -79,7 +78,7 @@ export default function Page() {
               type="password"
               id="password"
               placeholder="Password"
-              name="password"
+              name="password"   
               value={formData.password}
               onChange={handleChange}
             />
