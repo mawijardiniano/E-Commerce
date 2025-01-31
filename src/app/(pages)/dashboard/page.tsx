@@ -26,9 +26,7 @@ export default function Dashboard() {
       const response = await axios.get<ProductInterface[]>(FetchProductAPI);
       console.log("all product", response.data);
       setProduct(response.data);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
   
   useEffect(() => {
@@ -36,7 +34,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-slate-50">
       <header>
         <Navbar />
       </header>
@@ -53,8 +51,8 @@ export default function Dashboard() {
       </section>
       <section>
         <div className="">
-          <p className="text-gray-400 text-lg font-medium px-8 ">Daily Discovery</p>
-          <div className="flex flex-row px-8 gap-2 py-4">
+          <p>Daily Discovery</p>
+          <div className="flex flex-row px-8 gap-2">
             {product.length > 0 ? (
               product.map((products, index) => (
                 <Card key={index} className="w-64 h-64">
@@ -79,6 +77,8 @@ export default function Dashboard() {
               <p>No product available</p>
             )}
           </div>
+
+          <p>Random Items</p>
         </div>
       </section>
     </div>

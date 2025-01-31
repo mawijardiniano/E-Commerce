@@ -29,26 +29,26 @@ interface Category {
 }
 export default function CarouselCategory() {
   const categories: Category[] = [
-    { id: "men-apparel", name: "Category 1", image: MenApparel.src, route: "/dashboard/categories/men-apparel" },
-    { id: "gadgets", name: "Category 2", image: Gadgets.src, route: "/dashboard/categories/gadget" },
-    { id: "mobile-accessories", name: "Category 3", image: MobileAccessories.src, route: "/dashboard/categories/mobile-accessories" },
-    { id: "home-entertainment", name: "Category 4", image: HomeEntertainment.src, route: "/dashboard/categories/home-entertainment" },
-    { id: "home-living", name: "Category 5", image: HomeLiving.src, route: "/dashboard/categories/home-living" },
-    { id: "groceries", name: "Category 6", image: Groceries.src, route: "/dashboard/categories/groceries" },
-    { id: "toys", name: "Category 7", image: Toys.src, route: "/dashboard/categories/toys" },
-    { id: "pet-care", name: "Category 8", image: PetCare.src, route: "/dashboard/categories/pet-care" },
-    { id: "audios", name: "Category 9", image: Audios.src, route: "/dashboard/categories/audios" },
-    { id: "sports", name: "Category 10", image: Sports.src, route: "/dashboard/categories/sports" },
-    { id: "woman-apparel", name: "Category 11", image: WomanApparel.src, route: "/dashboard/categories/woman-apparel" },
-    { id: "health-care", name: "Category 12", image: HealthCare.src, route: "/dashboard/categories/health-care" },
-    { id: "makeup", name: "Category 13", image: Makeup.src, route: "/dashboard/categories/makeup" },
-    { id: "home-appliances", name: "Category 14", image: HomeAppliances.src, route: "/dashboard/categories/home-appliances" },
-    { id: "laptop-computer", name: "Category 15", image: LaptopComputer.src, route: "/dashboard/categories/laptop-computer" },
-    { id: "cameras", name: "Category 16", image: Cameras.src, route: "/dashboard/categories/cameras" },
-    { id: "mens-accessories", name: "Category 17", image: MensAccessories.src, route: "/dashboard/categories/mens-accessories" },
-    { id: "mens-shoes", name: "Category 18", image: MensShoes.src, route: "/dashboard/categories/mens-shoes" },
-    { id: "motors", name: "Category 19", image: Motors.src, route: "/dashboard/categories/motors" },
-    { id: "gaming", name: "Category 20", image: Gaming.src, route: "/dashboard/categories/gaming" },
+    { id: "men-apparel", name: "Mens Apparel", image: MenApparel.src, route: "/dashboard/categories/men-apparel" },
+    { id: "gadgets", name: "Gadgets", image: Gadgets.src, route: "/dashboard/categories/gadget" },
+    { id: "mobile-accessories", name: "Mobile Accessories", image: MobileAccessories.src, route: "/dashboard/categories/mobile-accessories" },
+    { id: "home-entertainment", name: "Home Entertainment", image: HomeEntertainment.src, route: "/dashboard/categories/home-entertainment" },
+    { id: "home-living", name: "Home Living", image: HomeLiving.src, route: "/dashboard/categories/home-living" },
+    { id: "groceries", name: "Groceries", image: Groceries.src, route: "/dashboard/categories/groceries" },
+    { id: "toys", name: "Toys", image: Toys.src, route: "/dashboard/categories/toys" },
+    { id: "pet-care", name: "Petcare", image: PetCare.src, route: "/dashboard/categories/pet-care" },
+    { id: "audios", name: "Audios", image: Audios.src, route: "/dashboard/categories/audios" },
+    { id: "sports", name: "Sports", image: Sports.src, route: "/dashboard/categories/sports" },
+    { id: "woman-apparel", name: "Women Apparel", image: WomanApparel.src, route: "/dashboard/categories/woman-apparel" },
+    { id: "health-care", name: "Health Care", image: HealthCare.src, route: "/dashboard/categories/health-care" },
+    { id: "makeup", name: "Makeup", image: Makeup.src, route: "/dashboard/categories/makeup" },
+    { id: "home-appliances", name: "Home Appliances", image: HomeAppliances.src, route: "/dashboard/categories/home-appliances" },
+    { id: "laptop-computer", name: "Laptop Computer", image: LaptopComputer.src, route: "/dashboard/categories/laptop-computer" },
+    { id: "cameras", name: "Cameras", image: Cameras.src, route: "/dashboard/categories/cameras" },
+    { id: "mens-accessories", name: "Mens Accessories", image: MensAccessories.src, route: "/dashboard/categories/mens-accessories" },
+    { id: "mens-shoes", name: "Mens shoes", image: MensShoes.src, route: "/dashboard/categories/mens-shoes" },
+    { id: "motors", name: "Motors", image: Motors.src, route: "/dashboard/categories/motors" },
+    { id: "gaming", name: "Gaming", image: Gaming.src, route: "/dashboard/categories/gaming" },
   ];
   
   return (
@@ -61,7 +61,7 @@ export default function CarouselCategory() {
               src={category.image}
               className="w-16 h-16 object-cover mb-2 rounded"
             />
-            <p>{category.name}</p>
+            <p className="font-medium text-sm text-center flex-wrap">{category.name}</p>
           </div>
         </div>
         </Link>

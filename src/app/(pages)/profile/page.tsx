@@ -101,7 +101,7 @@ export default function Page() {
     switch (currentView) {
       case "profile":
         return (
-          <div>
+          <div className="bg-slate-50 h-screen">
             <h2 className="font-medium text-2xl p-6">My Profile</h2>
             <div className="grid grid-cols-2 gap-2 items-center px-10">
               <div>
@@ -183,7 +183,7 @@ export default function Page() {
         <aside className="w-64 border-r">
           <AppSidebar onMenuClick={setCurrentView} />
         </aside>
-        <div className="flex-grow p-4 overflow-hidden">{renderView()}</div>
+        <div className="flex-grow overflow-hidden">{renderView()}</div>
       </div>
     </div>
   );
