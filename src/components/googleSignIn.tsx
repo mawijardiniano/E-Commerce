@@ -24,7 +24,6 @@ const GoogleSignIn = ({}) => {
       const user = result.user;
       console.log("User Info:", user);
       router.push("/dashboard")
-      alert(`Welcome ${user.displayName}!`);
 
     } catch (error) {
       console.error("Error signing in with Google:", error.message);

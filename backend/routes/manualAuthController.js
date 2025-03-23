@@ -3,7 +3,6 @@ import { createUser, userLogin, getUserLoggedin, updateUser } from '../controlle
 import authenticateToken from '../middleware/auth.js';
 const router = express.Router();
 
-
 router.post('/signup', createUser);
 router.post('/login', userLogin)
 router.get('/getLogged',authenticateToken, getUserLoggedin)
