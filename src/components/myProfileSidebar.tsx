@@ -32,6 +32,11 @@ export default function AppSidebar({ onMenuClick }) {
                       </SidebarMenuButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
+                      <SidebarMenuButton onClick={() => onMenuClick("store")}>
+                        My Store
+                      </SidebarMenuButton>
+                    </SidebarMenuSubItem>
+                    <SidebarMenuSubItem>
                       <SidebarMenuButton onClick={() => onMenuClick("address")}>
                         Settings
                       </SidebarMenuButton>

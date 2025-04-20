@@ -3,9 +3,19 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import AppSidebar from "@/components/myProfileSidebar";
 import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Store from "@/app/(pages)/profile/store/page"
 
 interface UserData {
   id: string;
@@ -47,7 +57,7 @@ export default function Page() {
           const response = await axios.get(LOGGED_USER, {
             headers: { Authorization: `Bearer ${token}` },
           });
-          console.log(response.data)
+          console.log(response.data);
           setUserLogged(response.data);
           setFormData(response.data);
 
@@ -75,13 +85,9 @@ export default function Page() {
 
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.put(
-        UPDATE_USER(userLogged.id),
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.put(UPDATE_USER(userLogged.id), formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       console.log("User updated:", response.data);
       alert("Profile updated successfully!");
@@ -166,8 +172,33 @@ export default function Page() {
                 </button>
               </section>
             </div>
+            <section className="p-8">
+              <Card className="mt-6 p-4">
+                <CardHeader>
+                  <CardTitle>Become a Seller</CardTitle>
+                  <CardDescription>
+                    Start selling your products on our platform
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="mb-4">
+                    Unlock new opportunities by becoming a seller on our
+                    platform. Reach millions of customers and grow your
+                    business.
+                  </p>
+                  <Button
+                   
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                  >
+                    Apply to Become a Seller
+                  </Button>
+                </CardContent>
+              </Card>
+            </section>
           </div>
         );
+        case "store":
+          return <Store/>;
       case "address":
         return <div>Settings Content</div>;
     }

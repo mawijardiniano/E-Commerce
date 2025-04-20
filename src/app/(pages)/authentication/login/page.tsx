@@ -1,5 +1,5 @@
 "use client";
-
+import BG from "@/assets/bg.jpg"
 import Logo from "@/assets/E-Commerce.png";
 import axios from "axios";
 import Image from "next/image";
@@ -60,9 +60,19 @@ export default function Page() {
 
   return (
     <div className="flex flex-row ">
-      <div className="w-1/2 flex">
-        <Image src={Logo} alt="E-Commerce Logo" layout="intrinsic" />
-      </div>
+<div className="relative w-1/2 h-screen flex justify-center items-center bg-cover bg-center" style={{ backgroundImage: `url(${BG.src})` }}>
+  <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+  <div className="relative z-10 w-1/2 flex justify-center">
+    <Image
+      src={Logo}
+      alt="E-Commerce Logo"
+      layout="intrinsic"
+      className="drop-shadow-lg transform scale-125 max-w-[300px]"
+    />
+  </div>
+</div>
+
+
       <div className="w-1/2 h-screen flex justify-center flex-col px-40">
         <div className="flex  justify-center flex-col">
           <h3 className="text-3xl font-medium">Welcome to E-Commerce</h3>

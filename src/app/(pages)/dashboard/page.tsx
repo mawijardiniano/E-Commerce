@@ -1,14 +1,10 @@
-"use client";
 import CarouselOffers from "@/components/carousel";
 import Navbar from "@/components/navbar";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import ProductInterface from "@/interfaces/ProductInterface";
 import CategoriesCarousel from "@/components/categoriesCarousel";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -16,22 +12,21 @@ import {
 import Image1 from "@/assets/you.png";
 import Image from "next/image";
 
-export default function Dashboard() {
-  const [product, setProduct] = useState<ProductInterface[]>([]);
+const FetchProductAPI = "http://localhost:5000/api/products/fetch-product";
 
-  const FetchProductAPI = "http://localhost:5000/api/products/fetch-product";
+async function fetchAllProducts(): Promise<ProductInterface[]> {
+  try {
+    const response = await fetch(FetchProductAPI, { cache: "no-store" }); 
+    if (!response.ok) throw new Error("Failed to fetch products");
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+}
 
-  const fetchAllProducts = async () => {
-    try {
-      const response = await axios.get<ProductInterface[]>(FetchProductAPI);
-      console.log("all product", response.data);
-      setProduct(response.data);
-    } catch (error) {}
-  };
-  
-  useEffect(() => {
-    fetchAllProducts();
-  }, []);
+export default async function Dashboard() {
+  const products = await fetchAllProducts();
 
   return (
     <div className="bg-slate-50">
@@ -50,11 +45,11 @@ export default function Dashboard() {
         </div>
       </section>
       <section>
-        <div className="">
+        <div>
           <p>Daily Discovery</p>
           <div className="flex flex-row px-8 gap-2">
-            {product.length > 0 ? (
-              product.map((products, index) => (
+            {products.length > 0 ? (
+              products.map((product, index) => (
                 <Card key={index} className="w-64 h-64">
                   <CardHeader>
                     <CardTitle>
@@ -67,18 +62,18 @@ export default function Dashboard() {
                       />
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>{products.name}</CardContent>
+                  <CardContent>{product.name}</CardContent>
                   <CardFooter>
-                    <p>{products.price}</p>
+                    <p>{product.price}</p>
                   </CardFooter>
                 </Card>
               ))
             ) : (
-              <p>No product available</p>
+              <p>No product</p>
             )}
           </div>
 
-          <p>Random Items</p>
+          <p>Random Item</p>
         </div>
       </section>
     </div>
